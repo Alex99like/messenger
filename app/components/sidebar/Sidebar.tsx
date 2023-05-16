@@ -5,7 +5,7 @@ import { getCurrentUser } from '@/app/actions/getCurrentUser';
 
 async function Sidebar({ children }: PropsWithChildren) {
   const currentUser = await getCurrentUser();
-   
+   console.log({currentUser}, 'Test')
   return (
     <div className="h-full">
       <DesktopSidebar currentUser={currentUser!} />

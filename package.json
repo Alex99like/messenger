@@ -19,6 +19,8 @@
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "clsx": "^1.2.1",
+    "date-fns": "^2.30.0",
+    "lodash": "^4.17.21",
     "next": "13.4.2",
     "next-auth": "^4.22.1",
     "next-superjson-plugin": "^0.5.7",
@@ -34,6 +36,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/lodash": "^4.14.194",
     "prisma": "^4.14.0"
   }
 }
