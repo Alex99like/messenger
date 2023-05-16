@@ -3,32 +3,41 @@
 import { Button } from "@/app/components/Button";
 import { Input } from "@/app/components/input/Input";
 import { BsGithub, BsGoogle  } from 'react-icons/bs';
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AuthSocialButton } from "./AuthSocialButton";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from "next/navigation";
 
 type Variant = 'LOGIN' | 'REGISTER'
 
 export const AuthForm = () => {
-  const [variant, setVariant] = useState<Variant>('LOGIN')
-  const [isLoading, setIsLoading] = useState(false)
+  const session = useSession();
+  const router = useRouter();
+  const [variant, setVariant] = useState<Variant>('LOGIN');
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (session?.status === 'authenticated') {
+      router.push('/users')
+    }
+  }, [session?.status, router]);
 
   const toggleVariant = useCallback(() => {
     if (variant === 'LOGIN') {
-      setVariant('REGISTER')
+      setVariant('REGISTER');
     } else {
-      setVariant('LOGIN')
+      setVariant('LOGIN');
     }
-  }, [variant])
+  }, [variant]);
 
   const {
     register,
     handleSubmit,
     formState: {
-      errors
+      errors,
     }
   } = useForm<FieldValues>({
     defaultValues: {
@@ -36,13 +45,27 @@ export const AuthForm = () => {
       email: '',
       password: ''
     }
-  })
+  });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true)
-
+    setIsLoading(true);
+  
     if (variant === 'REGISTER') {
       axios.post('/api/register', data)
+      .then(() => signIn('credentials', {
+        ...data,
+        redirect: false,
+      }))
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error('Invalid credentials!');
+        }
+
+        if (callback?.ok) {
+          toast.success('Logged in')
+          router.push('/conversations')
+        }
+      })
       .catch(() => toast.error('Something went wrong!'))
       .finally(() => setIsLoading(false))
     }
@@ -54,11 +77,12 @@ export const AuthForm = () => {
       })
       .then((callback) => {
         if (callback?.error) {
-          toast.error('Invalid credentials')
+          toast.error('Invalid credentials!');
         }
 
-        if (callback?.ok && !callback.error) {
-          toast.success('Logged in!')
+        if (callback?.ok) {
+          toast.success('Logged in')
+          router.push('/conversations')
         }
       })
       .finally(() => setIsLoading(false))
@@ -66,8 +90,20 @@ export const AuthForm = () => {
   }
 
   const socialAction = (action: string) => {
-    setIsLoading(true)
-  }
+    setIsLoading(true);
+
+    signIn(action, { redirect: false })
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error('Invalid credentials!');
+        }
+
+        if (callback?.ok) {
+          router.push('/conversations')
+        }
+      })
+      .finally(() => setIsLoading(false));
+  } 
 
   return ( 
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
