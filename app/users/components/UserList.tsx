@@ -1,14 +1,15 @@
 'use client';
 
+
 import { User } from "@prisma/client";
 
-import { UserBox } from "./UserBox";
+import UserBox from "./UserBox";
 
 interface UserListProps {
   items: User[];
 }
 
-export const UserList: React.FC<UserListProps> = ({ 
+const UserList: React.FC<UserListProps> = ({ 
   items, 
 }) => {
   return ( 
@@ -50,3 +51,5 @@ export const UserList: React.FC<UserListProps> = ({
     </aside>
   );
 }
+ 
+export default UserList;

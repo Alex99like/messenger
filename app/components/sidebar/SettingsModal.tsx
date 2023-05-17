@@ -7,9 +7,9 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { User } from '@prisma/client';
 import { CldUploadButton } from 'next-cloudinary';
 
-import { Input } from "../input/Input";
-import { Modal } from '../modals/Modal';
-import { Button } from '../Button';
+import Input from "../inputs/Input";
+import Modal from '../modals/Modal';
+import Button from '../Button';
 import Image from 'next/image';
 import { toast } from 'react-hot-toast';
 
@@ -19,7 +19,7 @@ interface SettingsModalProps {
   currentUser: User;
 }
 
-export const SettingsModal: React.FC<SettingsModalProps> = ({ 
+const SettingsModal: React.FC<SettingsModalProps> = ({ 
   isOpen, 
   onClose, 
   currentUser = {}
@@ -159,3 +159,5 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     </Modal>
   )
 }
+
+export default SettingsModal;

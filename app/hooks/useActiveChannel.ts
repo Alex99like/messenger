@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { pusherClient } from "../libs/pusher";
 import { Channel, Members } from "pusher-js";
-import { useActiveList } from "./useActiveList";
+import useActiveList from "./useActiveList";
 
-export const useActiveChannel = () => {
+const useActiveChannel = () => {
   const { set, add, remove } = useActiveList();
   const [activeChannel, setActiveChannel] = useState<Channel | null>(null);
 
@@ -38,3 +38,5 @@ export const useActiveChannel = () => {
     }
   }, [activeChannel, set, add, remove]);
 }
+
+export default useActiveChannel;

@@ -2,8 +2,10 @@
 
 import { Toaster } from "react-hot-toast";
 
-export const ToasterContext = () => {
+const ToasterContext = () => {
   return ( 
     <Toaster />
    );
 }
+ 
+export default ToasterContext;

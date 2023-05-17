@@ -7,9 +7,9 @@ interface AvatarGroupProps {
   users?: User[];
 };
 
-export const AvatarGroup = ({ 
+const AvatarGroup: React.FC<AvatarGroupProps> = ({ 
   users = [] 
-}: AvatarGroupProps) => {
+}) => {
   const slicedUsers = users.slice(0, 3);
   
   const positionMap = {
@@ -42,3 +42,5 @@ export const AvatarGroup = ({
     </div>
   );
 }
+
+export default AvatarGroup;

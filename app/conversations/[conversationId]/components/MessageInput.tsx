@@ -15,7 +15,7 @@ interface MessageInputProps {
   errors: FieldErrors
 }
 
-export const MessageInput: React.FC<MessageInputProps> = ({ 
+const MessageInput: React.FC<MessageInputProps> = ({ 
   placeholder, 
   id, 
   type, 
@@ -44,3 +44,5 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     </div>
    );
 }
+ 
+export default MessageInput;

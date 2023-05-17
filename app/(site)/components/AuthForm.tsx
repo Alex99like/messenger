@@ -1,19 +1,20 @@
 'use client';
 
-import { Button } from "@/app/components/Button";
-import { Input } from "@/app/components/input/Input";
-import { BsGithub, BsGoogle  } from 'react-icons/bs';
-import { useCallback, useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { AuthSocialButton } from "./AuthSocialButton";
 import axios from "axios";
-import { toast } from "react-hot-toast";
-import { signIn, useSession } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react';
+import { useCallback, useEffect, useState } from 'react';
+import { BsGithub, BsGoogle  } from 'react-icons/bs';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
 
-type Variant = 'LOGIN' | 'REGISTER'
+import Input from "@/app/components/inputs/Input";
+import AuthSocialButton from './AuthSocialButton';
+import Button from "@/app/components/Button";
+import { toast } from "react-hot-toast";
 
-export const AuthForm = () => {
+type Variant = 'LOGIN' | 'REGISTER';
+
+const AuthForm = () => {
   const session = useSession();
   const router = useRouter();
   const [variant, setVariant] = useState<Variant>('LOGIN');
@@ -21,7 +22,7 @@ export const AuthForm = () => {
 
   useEffect(() => {
     if (session?.status === 'authenticated') {
-      router.push('/users')
+      router.push('/conversations')
     }
   }, [session?.status, router]);
 
@@ -62,7 +63,6 @@ export const AuthForm = () => {
         }
 
         if (callback?.ok) {
-          toast.success('Logged in')
           router.push('/conversations')
         }
       })
@@ -81,7 +81,6 @@ export const AuthForm = () => {
         }
 
         if (callback?.ok) {
-          toast.success('Logged in')
           router.push('/conversations')
         }
       })
@@ -211,3 +210,5 @@ export const AuthForm = () => {
     </div>
   );
 }
+ 
+export default AuthForm;

@@ -1,11 +1,12 @@
-import { PropsWithChildren } from "react";
+import getUsers from "../actions/getUsers";
 import Sidebar from "../components/sidebar/Sidebar";
-import { getUsers } from "../actions/getUsers";
-import { UserList } from "./components/UserList";
+import UserList from "./components/UserList";
 
 export default async function UsersLayout({
   children
-}: PropsWithChildren) {
+}: {
+  children: React.ReactNode,
+}) {
   const users = await getUsers();
 
   return (
@@ -16,5 +17,5 @@ export default async function UsersLayout({
         {children}
       </div>
     </Sidebar>
-  )
+  );
 }

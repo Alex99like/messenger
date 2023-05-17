@@ -1,6 +1,6 @@
 'use client';
 
-import { Modal } from '@/app/components/modals/Modal';
+import Modal from '@/app/components/modals/Modal';
 import Image from 'next/image';
 
 interface ImageModalProps {
@@ -9,7 +9,7 @@ interface ImageModalProps {
   src?: string | null;
 }
 
-export const ImageModal: React.FC<ImageModalProps> = ({ 
+const ImageModal: React.FC<ImageModalProps> = ({ 
   isOpen, 
   onClose, 
   src
@@ -31,3 +31,5 @@ export const ImageModal: React.FC<ImageModalProps> = ({
     </Modal>
   )
 }
+
+export default ImageModal;

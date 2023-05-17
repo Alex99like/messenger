@@ -7,17 +7,17 @@ import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
 
-import { Avatar } from "@/app/components/Avatar";
-import { useOtherUser } from "@/app/hooks/useOtherUser";
+import Avatar from "@/app/components/Avatar";
+import useOtherUser from "@/app/hooks/useOtherUser";
+import AvatarGroup from "@/app/components/AvatarGroup";
 import { FullConversationType } from "@/app/types";
-import { AvatarGroup } from "@/app/components/AvatarGroup";
 
 interface ConversationBoxProps {
   data: FullConversationType,
   selected?: boolean;
 }
 
-export const ConversationBox: React.FC<ConversationBoxProps> = ({ 
+const ConversationBox: React.FC<ConversationBoxProps> = ({ 
   data, 
   selected 
 }) => {
@@ -121,3 +121,5 @@ export const ConversationBox: React.FC<ConversationBoxProps> = ({
     </div>
   );
 }
+ 
+export default ConversationBox;

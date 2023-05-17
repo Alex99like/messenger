@@ -10,10 +10,10 @@ import {
 } from 'react-hook-form';
 import { User } from '@prisma/client';
 
-import { Input } from "../input/Input";
-import { Select } from '../input/Select';
-import { Modal } from './Modal';
-import { Button } from '../Button';
+import Input from "../inputs/Input";
+import Select from '../inputs/Select';
+import Modal from './Modal';
+import Button from '../Button';
 import { toast } from 'react-hot-toast';
 
 interface GroupChatModalProps {
@@ -22,7 +22,7 @@ interface GroupChatModalProps {
   users: User[];
 }
 
-export const GroupChatModal: React.FC<GroupChatModalProps> = ({ 
+const GroupChatModal: React.FC<GroupChatModalProps> = ({ 
   isOpen, 
   onClose, 
   users = []
@@ -121,3 +121,5 @@ export const GroupChatModal: React.FC<GroupChatModalProps> = ({
     </Modal>
   )
 }
+
+export default GroupChatModal;

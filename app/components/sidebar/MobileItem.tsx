@@ -9,7 +9,7 @@ interface MobileItemProps {
   onClick?: () => void;
 }
 
-export const MobileItem: React.FC<MobileItemProps> = ({ 
+const MobileItem: React.FC<MobileItemProps> = ({ 
   href, 
   icon: Icon, 
   active,
@@ -45,3 +45,5 @@ export const MobileItem: React.FC<MobileItemProps> = ({
     </Link>
    );
 }
+ 
+export default MobileItem;

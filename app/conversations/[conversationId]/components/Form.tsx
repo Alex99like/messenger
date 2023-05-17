@@ -4,7 +4,7 @@ import {
   HiPaperAirplane, 
   HiPhoto
 } from "react-icons/hi2";
-import { MessageInput } from "./MessageInput";
+import MessageInput from "./MessageInput";
 import { 
   FieldValues, 
   SubmitHandler, 
@@ -12,9 +12,9 @@ import {
 } from "react-hook-form";
 import axios from "axios";
 import { CldUploadButton } from "next-cloudinary";
-import { useConversation } from "@/app/hooks/useConversation";
+import useConversation from "@/app/hooks/useConversation";
 
-export const Form = () => {
+const Form = () => {
   const { conversationId } = useConversation();
 
   const {
@@ -97,3 +97,5 @@ export const Form = () => {
     </div>
   );
 }
+ 
+export default Form;

@@ -4,7 +4,7 @@ import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ClipLoader } from 'react-spinners';
 
-export const LoadingModal = () => {
+const LoadingModal = () => {
   return (
     <Transition.Root show as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={() => {}}>
@@ -58,3 +58,5 @@ export const LoadingModal = () => {
     </Transition.Root>
   )
 }
+
+export default LoadingModal;

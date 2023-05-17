@@ -7,15 +7,15 @@ import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import { FullMessageType } from "@/app/types";
 
-import { Avatar } from "@/app/components/Avatar";
-import { ImageModal } from "./ImageModal";
+import Avatar from "@/app/components/Avatar";
+import ImageModal from "./ImageModal";
 
 interface MessageBoxProps {
   data: FullMessageType;
   isLast?: boolean;
 }
 
-export const MessageBox: React.FC<MessageBoxProps> = ({ 
+const MessageBox: React.FC<MessageBoxProps> = ({ 
   data, 
   isLast
 }) => {
@@ -89,3 +89,4 @@ export const MessageBox: React.FC<MessageBoxProps> = ({
    );
 }
  
+export default MessageBox;

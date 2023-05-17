@@ -3,14 +3,14 @@ import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import {  User } from "@prisma/client";
 
-import { Avatar } from "@/app/components/Avatar";
-import { LoadingModal } from "@/app/components/modals/LoadingModal";
+import Avatar from "@/app/components/Avatar";
+import LoadingModal from "@/app/components/modals/LoadingModal";
 
 interface UserBoxProps {
   data: User
 }
 
-export const UserBox: React.FC<UserBoxProps> = ({ 
+const UserBox: React.FC<UserBoxProps> = ({ 
   data
 }) => {
   const router = useRouter();
@@ -62,3 +62,5 @@ export const UserBox: React.FC<UserBoxProps> = ({
     </>
   );
 }
+ 
+export default UserBox;

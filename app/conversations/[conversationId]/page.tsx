@@ -1,13 +1,10 @@
-import { getConversationById } from "@/app/actions/getConversationById";
-import { getMessages } from "@/app/actions/getMessages";
+import getConversationById from "@/app/actions/getConversationById";
+import getMessages from "@/app/actions/getMessages";
 
-// import Header from "./components/Header";
-// import Body from "./components/Body";
-// import Form from "./components/Form";
-import { EmptyState } from "@/app/components/EmptyState";
-import { Header } from "./components/Header";
-import { Body } from "./components/Body";
-import { Form } from "./components/Form";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import Form from "./components/Form";
+import EmptyState from "@/app/components/EmptyState";
 
 interface IParams {
   conversationId: string;
@@ -38,5 +35,4 @@ const ChatId = async ({ params }: { params: IParams }) => {
   );
 }
 
-
-export default ChatId
+export default ChatId;

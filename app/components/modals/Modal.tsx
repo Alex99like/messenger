@@ -10,7 +10,7 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -114,3 +114,5 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     </Transition.Root>
   )
 }
+
+export default Modal;

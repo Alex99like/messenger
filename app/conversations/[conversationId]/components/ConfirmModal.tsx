@@ -5,9 +5,9 @@ import { Dialog } from '@headlessui/react'
 import { FiAlertTriangle } from 'react-icons/fi'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { Modal } from '@/app/components/modals/Modal';
-import { Button } from '@/app/components/Button';
-import { useConversation } from '@/app/hooks/useConversation';
+import Modal from '@/app/components/modals/Modal';
+import Button from '@/app/components/Button';
+import useConversation from '@/app/hooks/useConversation';
 import { toast } from 'react-hot-toast';
 
 interface ConfirmModalProps {
@@ -15,7 +15,7 @@ interface ConfirmModalProps {
   onClose: () => void;
 }
 
-export const ConfirmModal: React.FC<ConfirmModalProps> = ({ 
+const ConfirmModal: React.FC<ConfirmModalProps> = ({ 
   isOpen, 
   onClose 
 }) => {
@@ -101,3 +101,5 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
     </Modal>
   )
 }
+
+export default ConfirmModal;

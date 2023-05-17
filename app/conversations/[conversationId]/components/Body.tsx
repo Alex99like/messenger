@@ -4,17 +4,16 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
 import { pusherClient } from "@/app/libs/pusher";
-import { useConversation } from "@/app/hooks/useConversation";
-//import MessageBox from "./MessageBox";
+import useConversation from "@/app/hooks/useConversation";
+import MessageBox from "./MessageBox";
 import { FullMessageType } from "@/app/types";
 import { find } from "lodash";
-import { MessageBox } from "./MessageBox";
 
 interface BodyProps {
   initialMessages: FullMessageType[];
 }
 
-export const Body: React.FC<BodyProps> = ({ initialMessages = [] }) => {
+const Body: React.FC<BodyProps> = ({ initialMessages = [] }) => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState(initialMessages);
   
@@ -77,3 +76,4 @@ export const Body: React.FC<BodyProps> = ({ initialMessages = [] }) => {
   );
 }
  
+export default Body;

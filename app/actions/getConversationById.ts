@@ -1,7 +1,7 @@
 import prisma from "@/app/libs/prismadb";
-import { getCurrentUser } from "./getCurrentUser";
+import getCurrentUser from "./getCurrentUser";
 
-export const getConversationById = async (
+const getConversationById = async (
   conversationId: string
 ) => {
   try {
@@ -26,3 +26,5 @@ export const getConversationById = async (
     return null;
   }
 };
+
+export default getConversationById;

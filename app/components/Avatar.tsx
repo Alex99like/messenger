@@ -2,14 +2,14 @@
 
 import { User } from "@prisma/client";
 
-import { useActiveList } from "../hooks/useActiveList";
+import useActiveList from "../hooks/useActiveList";
 import Image from "next/image";
 
 interface AvatarProps {
   user?: User;
 };
 
-export const Avatar: React.FC<AvatarProps> = ({ user }) => {
+const Avatar: React.FC<AvatarProps> = ({ user }) => {
   const { members } = useActiveList();
   const isActive = members.indexOf(user?.email!) !== -1;
 
@@ -52,3 +52,5 @@ export const Avatar: React.FC<AvatarProps> = ({ user }) => {
     </div>
   );
 }
+
+export default Avatar;

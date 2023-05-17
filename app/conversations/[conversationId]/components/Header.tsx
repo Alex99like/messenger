@@ -6,12 +6,12 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Conversation, User } from "@prisma/client";
 
-import { useOtherUser } from "@/app/hooks/useOtherUser";
-import { useActiveList } from "@/app/hooks/useActiveList";
+import useOtherUser from "@/app/hooks/useOtherUser";
+import useActiveList from "@/app/hooks/useActiveList";
 
-import { Avatar } from "@/app/components/Avatar";
-import { AvatarGroup } from "@/app/components/AvatarGroup";
-import { ProfileDrawer } from './ProfileDrawer';
+import Avatar from "@/app/components/Avatar";
+import AvatarGroup from "@/app/components/AvatarGroup";
+import ProfileDrawer from "./ProfileDrawer";
 
 interface HeaderProps {
   conversation: Conversation & {
@@ -19,7 +19,7 @@ interface HeaderProps {
   }
 }
 
-export const Header = ({ conversation }: HeaderProps) => {
+const Header: React.FC<HeaderProps> = ({ conversation }) => {
   const otherUser = useOtherUser(conversation);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -95,3 +95,5 @@ export const Header = ({ conversation }: HeaderProps) => {
     </>
   );
 }
+ 
+export default Header;

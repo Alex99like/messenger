@@ -1,16 +1,16 @@
 import clsx from "clsx";
-import { PropsWithChildren } from "react";
 
 interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
   fullWidth?: boolean;
+  children?: React.ReactNode;
   onClick?: () => void;
   secondary?: boolean;
   danger?: boolean;
   disabled?: boolean;
 }
 
-export const Button = ({
+const Button: React.FC<ButtonProps> = ({
   type = "button",
   fullWidth,
   children,
@@ -18,7 +18,7 @@ export const Button = ({
   secondary,
   danger,
   disabled,
-}: PropsWithChildren<ButtonProps>) => {
+}) => {
   return ( 
     <button
       onClick={onClick}
@@ -47,3 +47,5 @@ export const Button = ({
     </button>
    );
 }
+ 
+export default Button;

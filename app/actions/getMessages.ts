@@ -1,6 +1,6 @@
 import prisma from "@/app/libs/prismadb";
 
-export const getMessages = async (
+const getMessages = async (
   conversationId: string
 ) => {
   try {
@@ -22,3 +22,5 @@ export const getMessages = async (
     return [];
   }
 };
+
+export default getMessages;

@@ -1,10 +1,10 @@
 'use client';
 
-import { useConversation } from "@/app/hooks/useConversation";
-import { useRoutes } from "@/app/hooks/useRoutes";
-import { MobileItem } from "./MobileItem";
+import useConversation from "@/app/hooks/useConversation";
+import useRoutes from "@/app/hooks/useRoutes";
+import MobileItem from "./MobileItem";
 
-export const MobileFooter = () => {
+const MobileFooter = () => {
   const routes = useRoutes();
   const { isOpen } = useConversation();
 
@@ -40,3 +40,4 @@ export const MobileFooter = () => {
    );
 }
  
+export default MobileFooter;

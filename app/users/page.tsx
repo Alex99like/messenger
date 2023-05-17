@@ -1,6 +1,4 @@
-'use client';
-
-import { EmptyState } from "../components/EmptyState";
+import EmptyState from '../components/EmptyState';
 
 const People = () => {
   return (
@@ -9,5 +7,5 @@ const People = () => {
     </div>
    );
 }
-
+ 
 export default People;

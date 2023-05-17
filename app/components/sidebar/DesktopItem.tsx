@@ -9,13 +9,13 @@ interface DesktopItemProps {
   active?: boolean;
 }
 
-export const DesktopItem = ({ 
+const DesktopItem: React.FC<DesktopItemProps> = ({ 
   label, 
   href, 
   icon: Icon, 
   active,
   onClick
-}: DesktopItemProps) => {
+}) => {
   const handleClick = () => {
     if (onClick) {
       return onClick();
@@ -48,3 +48,5 @@ export const DesktopItem = ({
     </li>
    );
 }
+ 
+export default DesktopItem;
