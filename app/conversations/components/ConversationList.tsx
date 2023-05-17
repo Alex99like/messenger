@@ -9,7 +9,7 @@ import clsx from "clsx";
 import { find, uniq } from 'lodash';
 
 import { useConversation } from "@/app/hooks/useConversation";
-//import { pusherClient } from "@/app/libs/pusher";
+import { pusherClient } from "@/app/libs/pusher";
 import { GroupChatModal } from "@/app/components/modals/GroupChatModal";
 //import { ConversationBox } from "./ConversationBox";
 import { FullConversationType } from "@/app/types";
@@ -42,7 +42,7 @@ export const ConversationList: React.FC<ConversationListProps> = ({
       return;
     }
 
-    //pusherClient.subscribe(pusherKey);
+    pusherClient.subscribe(pusherKey);
 
     const updateHandler = (conversation: FullConversationType) => {
       setItems((current) => current.map((currentConversation) => {
@@ -73,9 +73,9 @@ export const ConversationList: React.FC<ConversationListProps> = ({
       });
     }
 
-    //pusherClient.bind('conversation:update', updateHandler)
-    //pusherClient.bind('conversation:new', newHandler)
-    //pusherClient.bind('conversation:remove', removeHandler)
+    pusherClient.bind('conversation:update', updateHandler)
+    pusherClient.bind('conversation:new', newHandler)
+    pusherClient.bind('conversation:remove', removeHandler)
   }, [pusherKey, router]);
 
   return (
