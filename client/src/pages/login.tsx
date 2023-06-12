@@ -1,7 +1,7 @@
 import { Login } from "@/view/Login/Login";
 
-function login() {
+function LoginPage() {
   return <Login />
 }
 
-export default login;
+export default LoginPage;
