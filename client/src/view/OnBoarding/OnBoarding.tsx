@@ -16,10 +16,10 @@ export const OnBoarding = () => {
   const [image, setImage] = useState(userInfo?.profileImage || AvatarDefault)
   const router = useRouter()
 
-  useEffect(() => {
-    if (!newUser && !userInfo?.email) router.push('/login')
-    else if (!newUser && userInfo?.email) router.push('/')
-  }, [newUser, userInfo, router])
+  //useEffect(() => {
+  //  if (!newUser && !userInfo?.email) router.push('/login')
+  //  else if (!newUser && userInfo?.email) router.push('/')
+  //}, [newUser, userInfo, router])
 
   const onBoardUserHandler = async () => {
     if (validateDetails()) {
@@ -36,7 +36,7 @@ export const OnBoarding = () => {
           dispatch({
             type: REDUCER_CASES.SET_USER_INFO,
             userInfo: { 
-              id: data.id,
+              id: data.user.id,
               name, 
               email, 
               profileImage: image, 

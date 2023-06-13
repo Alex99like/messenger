@@ -12,7 +12,7 @@ import { CapturePhoto } from '../CapturePhoto/CapturePhoto'
 type PropsAvatar = {
   type: 'sm' | 'lg' | 'xl'
   image: string | StaticImageData
-  setImage: (val: string | StaticImageData) => void
+  setImage?: (val: string | StaticImageData) => void
 }
 
 export const Avatar = ({ type, image, setImage }: PropsAvatar) => {
@@ -57,7 +57,7 @@ export const Avatar = ({ type, image, setImage }: PropsAvatar) => {
       setGrabPhoto(true)
     } },
     { name: 'Remove Photo', callback: () => {
-      setImage(DefaultAvatar)
+      setImage && setImage(DefaultAvatar)
     } },
   ]
 
@@ -71,8 +71,7 @@ export const Avatar = ({ type, image, setImage }: PropsAvatar) => {
     }
     reader.readAsDataURL(file)
     setTimeout(() => {
-        console.log(data.src)
-      setImage(data.src)
+      setImage && setImage(data.src)
     }, 100)
   }
 
@@ -80,7 +79,7 @@ export const Avatar = ({ type, image, setImage }: PropsAvatar) => {
     <>
       <div className={styles.wrapper}>
         {type === 'sm' && (
-          <div className={styles['container-img']}>
+          <div className={cn(styles['container-img'], styles.sm)}>
             <Image 
               src={image}
               alt='avatar'
@@ -141,13 +140,13 @@ export const Avatar = ({ type, image, setImage }: PropsAvatar) => {
           />
         )
       }
-      {showPhotoLibrary && (
+      {showPhotoLibrary && setImage && (
         <PhotoLibrary 
           setImage={setImage}
           hidePhotoLibrary={setShowPhotoLibrary}
         />
       )}
-      {showCapturePhoto && (
+      {showCapturePhoto && setImage && (
         <CapturePhoto 
           setImage={setImage}
           hide={setShowCapturePhoto}

@@ -34,7 +34,7 @@ export const onBoardUser = async (req: Request, res: Response, next: NextFunctio
     console.log(req.body)
 
     const prisma = getPrismaInstance()
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         email, 
         name, 
@@ -43,8 +43,8 @@ export const onBoardUser = async (req: Request, res: Response, next: NextFunctio
       }
     })
     
-    return res.json({ msg: 'Success', status: true })
+    return res.json({ msg: 'Success', status: true, user })
   } catch(err) {
-    next(err)
+    next(err)  
   }
 }
