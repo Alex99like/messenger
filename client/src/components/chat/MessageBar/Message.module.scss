@@ -1,0 +1,41 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #19181e;
+  padding: 15px 10px;
+
+  .message {
+    width: 100%;
+    font-size: 18px;
+    background-color: #353535;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 3px 10px;
+    color: #d8d8d8;
+  }
+
+  .icon {
+    color: #ffffff;
+    margin-right: 15px;
+  }
+
+  .send {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 25px;
+  }
+}

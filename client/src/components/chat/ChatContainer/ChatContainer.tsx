@@ -1,7 +1,8 @@
 import React from 'react'
+import styles from './ChatContainer.module.scss'
 
 export const ChatContainer = () => {
   return (
-    <div>ChatContainer</div>
+    <div className={styles.wrapper}>ChatContainer</div>
   )
 }
