@@ -1,9 +1,11 @@
+import { StaticImageData } from "next/image"
 import { REDUCER_CASES } from "./constants"
 
 interface IUserInfo {
+   id?: number
    name: string | null
-   email: string
-   profileImage: string | null
+   email: string | undefined
+   profileImage: string | null | undefined | StaticImageData
    status: string
 }
 

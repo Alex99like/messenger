@@ -7,10 +7,15 @@ import { useRouter } from 'next/router'
 import { useStateProvider } from '@/context/StateContext'
 import { REDUCER_CASES } from '@/context/constants'
 import { CHECK_USER_ROUTE } from '@/utils/ApiRoutes'
+import { useEffect } from 'react'
 
 export const Login = () => {
   const router = useRouter()
-  const [{ userInfo }, dispatch] = useStateProvider()
+  const [{ userInfo, newUser }, dispatch] = useStateProvider()
+
+  useEffect(() => {
+    if (userInfo?.id && !newUser) router.push('/') 
+  }, [userInfo, newUser])
 
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider();
@@ -35,6 +40,20 @@ export const Login = () => {
             }
           })
           router.push('/onboarding')
+        } else {
+          const { id, name, email, profilePicture: profileImage, status } = data.data
+
+          dispatch({
+            type: REDUCER_CASES.SET_USER_INFO,
+            userInfo: { 
+              id,
+              name,
+              email,
+              profileImage, 
+              status
+            }
+          })
+          router.push('/')
         }
       }
     } catch(err) {

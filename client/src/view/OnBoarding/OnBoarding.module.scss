@@ -4,10 +4,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+
+  .title {
+    color: #86fc9e;
+    margin-bottom: 20px;
+  }
 
   .form {
     display: flex;
     flex-direction: column;
     gap: 15px;
+  }
+
+  .btn {
+    border: none;
+    width: 220px;
+    margin: 20px auto 0;
+    background-color: #202020;
+    font-size: 26px;
+    color: #ececec;
+    text-shadow: 0 0 1px black;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-weight: 600;
+    border-bottom: 4px solid #0c0c0c;
+    cursor: pointer;
   }
 }
