@@ -15,7 +15,7 @@ import { Chat } from '@/components/chat/Chat'
 export const Main = () => {
   const [redirectLogin, setRedirectLogin] = useState(false)
   const router = useRouter()
-  const [{ userInfo }, dispatch] = useStateProvider()
+  const [{ userInfo, currentChatUser }, dispatch] = useStateProvider()
 
   useEffect(() => {
     if (redirectLogin) router.push('/login')
@@ -47,8 +47,10 @@ export const Main = () => {
   return (
     <section className={styles.wrapper}>
       <ChatList />
+      {
+        currentChatUser ? <Chat /> : <Empty />
+      }
       {/* <Empty /> */}
-      <Chat />
     </section>
   )
 }

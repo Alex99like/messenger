@@ -89,7 +89,7 @@ export const Avatar = ({ type, image, setImage }: PropsAvatar) => {
           </div>
         )}
         {type === 'lg' && (
-          <div className={styles['container-img']}>
+          <div className={cn(styles['container-img'], styles.lg)}>
             <Image 
               src={image}
               alt='avatar'

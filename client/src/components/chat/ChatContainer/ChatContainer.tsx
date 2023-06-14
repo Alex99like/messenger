@@ -3,6 +3,8 @@ import styles from './ChatContainer.module.scss'
 
 export const ChatContainer = () => {
   return (
-    <div className={styles.wrapper}>ChatContainer</div>
+    <div className={styles.wrapper}>
+      
+    </div>
   )
 }

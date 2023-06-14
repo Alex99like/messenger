@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  padding: 10px;
+  gap: 20px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #68686843;
+  }
+
+  .data {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+    color: #b5b5b5;
+
+    .about {
+      font-weight: 600;
+    }
+  }
+}
