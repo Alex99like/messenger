@@ -1,6 +1,7 @@
 import { StaticImageData } from "next/image"
 import { REDUCER_CASES } from "./constants"
 import { IMessage, IUserContact } from "@/types/contact.types"
+import { Socket } from 'socket.io-client'
 
 export interface IUserInfo {
    id?: number
@@ -16,6 +17,7 @@ export interface IInitialState {
   contactsPage: boolean
   currentChatUser: undefined | IUserContact
   messages: IMessage[]
+  socket: Socket | undefined
 }
 
 export const initialState: IInitialState = {
@@ -23,7 +25,8 @@ export const initialState: IInitialState = {
   newUser: false,
   contactsPage: false,
   currentChatUser: undefined,
-  messages: []
+  messages: [],
+  socket: undefined
 }
 
 export type ActionReducer =
@@ -32,6 +35,8 @@ export type ActionReducer =
  | { type: REDUCER_CASES.SET_ALL_CONTACTS_PAGE }
  | { type: REDUCER_CASES.CHANGE_CURRENT_CHAT_USER, user: IUserContact }
  | { type: REDUCER_CASES.SET_MESSAGE, messages: IMessage[] }
+ | { type: REDUCER_CASES.SET_SOCKET, socket: Socket }
+ | { type: REDUCER_CASES.ADD_MESSAGE, newMessage: IMessage }
 
 
 export const reducer = (state: IInitialState, action: ActionReducer): IInitialState => {
@@ -64,6 +69,18 @@ export const reducer = (state: IInitialState, action: ActionReducer): IInitialSt
       return {
         ...state,
         messages: action.messages
+      }
+    }
+    case REDUCER_CASES.SET_SOCKET: {
+      return {
+        ...state,
+        socket: action.socket,
+      }
+    }
+    case REDUCER_CASES.ADD_MESSAGE: {
+      return {
+        ...state,
+        messages: [...state.messages, action.newMessage]
       }
     }
     default: {

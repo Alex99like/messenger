@@ -1,5 +1,5 @@
-declare module globalThis {
-  let myObj: { foo: string };
-}
+// declare module globalThis {
+//   let myObj: { foo: string };
+// }
 
-declare var global: Global;
+// declare var global: Global;

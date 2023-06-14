@@ -8,7 +8,7 @@ export const MessageStatus = ({ messageStatus }: { messageStatus: 'sent' | 'deli
     <>
       {messageStatus === 'sent' && <BsCheck className={cn(styles.status)} />}
       {messageStatus === 'delivered' && <BsCheckAll className={cn(styles.status)} />}
-      {messageStatus === 'read' && <BsCheckAll className={cn(styles.status)} />}
+      {messageStatus === 'read' && <BsCheckAll className={cn(styles.status)} style={{ color: '#50f592' }} />}
     </>
   )
 }

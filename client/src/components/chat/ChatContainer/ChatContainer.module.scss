@@ -1,20 +1,39 @@
 .wrapper {
   height: 100%;
   position: relative;
+  overflow: hidden;
+  overflow-y: scroll;
+  background-image: url('../../../assets/chat-bg.png');
+  background-size: 30vw;
+
+  &::-webkit-scrollbar {
+    width: 8px;               /* ширина scrollbar */
+  }
+  &::-webkit-scrollbar-track {
+    background: #6362627d;        /* цвет дорожки */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(26, 26, 26);    /* цвет плашки */
+    border-radius: 20px;       /* закругления плашки */
+  }
+  
 
   .bg {
     position: absolute;
     width: 100%;
     height: 100%;
     background-size: 30vw;
+    bottom: 0;
     // @media (max-width: 720px) {
       
     // }
     opacity: .2;
+    z-index: 0;
     background-image: url('../../../assets/chat-bg.png');
   }
 
   .list {
+    z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -37,6 +56,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        justify-content: space-between;
       }
 
       .time {

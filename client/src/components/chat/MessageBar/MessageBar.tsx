@@ -7,17 +7,30 @@ import { FaMicrophone } from 'react-icons/fa'
 import { useStateProvider } from '@/context/StateContext'
 import axios from 'axios'
 import { ADD_MESSAGE_ROUTE } from '@/utils/ApiRoutes'
+import { REDUCER_CASES } from '@/context/constants'
 
 export const MessageBar = () => {
-  const [{ userInfo, currentChatUser }, dispatch] = useStateProvider()
+  const [{ userInfo, currentChatUser, socket }, dispatch] = useStateProvider()
   const [message, setMessage] = useState('')
 
   const sendMessage = async () => {
     try {
-      const {} = await axios.post(ADD_MESSAGE_ROUTE, {
+      const { data } = await axios.post(ADD_MESSAGE_ROUTE, {
         to: currentChatUser?.id,
         from: userInfo?.id,
         message
+      })
+      socket?.emit("send-msg", {
+        to: currentChatUser?.id,
+        from: userInfo?.id,
+        message: data.message
+      })
+      dispatch({
+        type: REDUCER_CASES.ADD_MESSAGE,
+        newMessage: {
+          ...data.message
+        },
+        // fromSelf: true
       })
       setMessage('')
     } catch(err) {

@@ -15,11 +15,12 @@ export const ChatContainer = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.bg}/>
+      {/* <div className={styles.bg}> </div> */}
       <div className={styles.list}>
         
         {messages.map((msg) => (
           <div
+           key={msg.id}
            className={cn(styles.message, {
              [styles.from]: msg.senderId === currentChatUser?.id,
              [styles.to]: msg.recieverId === currentChatUser?.id
