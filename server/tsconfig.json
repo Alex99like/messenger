@@ -111,5 +111,8 @@
   "lib": ["esnext"],
   "ts-node": {
     "esm": true
-  }
+  },
+  "files": [
+    "./src/global.d.ts"
+  ]
 }

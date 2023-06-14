@@ -6,7 +6,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { firebaseAuth } from '@/utils/FirebaseConfig'
 import { useState } from 'react'
 import axios from 'axios'
-import { CHECK_USER_ROUTE } from '@/utils/ApiRoutes'
+import { CHECK_USER_ROUTE, GET_MESSAGES_ROUTE } from '@/utils/ApiRoutes'
 import { useRouter } from 'next/router'
 import { useStateProvider } from '@/context/StateContext'
 import { REDUCER_CASES } from '@/context/constants'
@@ -25,7 +25,6 @@ export const Main = () => {
     if (!currentUser) setRedirectLogin(true)
     if (!userInfo && currentUser?.email) {
       const { data } = await axios.post(CHECK_USER_ROUTE, { email: currentUser.email })
-      console.log(data)
       if (!data.status) {
         router.push('/login')
       }
@@ -43,6 +42,18 @@ export const Main = () => {
       })
     }
   })
+
+  useEffect(() => {
+    const getMessages = async () => {
+      console.log(`${GET_MESSAGES_ROUTE}/${userInfo?.id}/${currentChatUser?.id}`)
+      const { data } = await axios.get(`${GET_MESSAGES_ROUTE}/${userInfo?.id}/${currentChatUser?.id}`)
+      dispatch({ type: REDUCER_CASES.SET_MESSAGE, messages: data.messages })
+    }
+    
+    if (userInfo?.id && currentChatUser?.id) {
+      getMessages()
+    }
+  }, [currentChatUser])
 
   return (
     <section className={styles.wrapper}>

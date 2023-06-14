@@ -19,7 +19,6 @@ export const ContactList = () => {
       try {
         const { data: { users } } = await axios.get(GET_ALL_CONTACTS)
         setAllContacts(users)
-        console.log(users)
       } catch(err) {
         console.log(err)
       }    
@@ -46,7 +45,6 @@ export const ContactList = () => {
       </div>
       <div className={styles.list}>
         {Object.entries(allContacts).map(([initialLetter, userList]) => {
-          console.log(initialLetter)
           return (
             <div key={Date.now() + initialLetter}>
               <span className={styles['init-letter']}>{initialLetter}</span>

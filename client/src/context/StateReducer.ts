@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image"
 import { REDUCER_CASES } from "./constants"
-import { IUserContact } from "@/types/contact.types"
+import { IMessage, IUserContact } from "@/types/contact.types"
 
 export interface IUserInfo {
    id?: number
@@ -15,13 +15,15 @@ export interface IInitialState {
   newUser: boolean
   contactsPage: boolean
   currentChatUser: undefined | IUserContact
+  messages: IMessage[]
 }
 
 export const initialState: IInitialState = {
   userInfo: undefined,
   newUser: false,
   contactsPage: false,
-  currentChatUser: undefined
+  currentChatUser: undefined,
+  messages: []
 }
 
 export type ActionReducer =
@@ -29,6 +31,7 @@ export type ActionReducer =
  | { type: REDUCER_CASES.SET_NEW_USER, newUser: boolean }
  | { type: REDUCER_CASES.SET_ALL_CONTACTS_PAGE }
  | { type: REDUCER_CASES.CHANGE_CURRENT_CHAT_USER, user: IUserContact }
+ | { type: REDUCER_CASES.SET_MESSAGE, messages: IMessage[] }
 
 
 export const reducer = (state: IInitialState, action: ActionReducer): IInitialState => {
@@ -52,10 +55,15 @@ export const reducer = (state: IInitialState, action: ActionReducer): IInitialSt
       }
     }
     case REDUCER_CASES.CHANGE_CURRENT_CHAT_USER: {
-      console.log(action)
       return {
         ...state,
         currentChatUser: action.user,
+      }
+    }
+    case REDUCER_CASES.SET_MESSAGE: {
+      return {
+        ...state,
+        messages: action.messages
       }
     }
     default: {
