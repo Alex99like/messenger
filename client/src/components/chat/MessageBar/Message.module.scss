@@ -19,6 +19,7 @@
   .icon {
     color: #ffffff;
     margin-right: 15px;
+    cursor: pointer;
   }
 
   .send {
@@ -38,4 +39,16 @@
     cursor: pointer;
     font-size: 25px;
   }
+
+  .emoji {
+    position: relative;
+
+    .emoji-container {
+      position: absolute;
+      bottom: 45px;
+      z-index: 2;
+    }
+  }
+
+  
 }
