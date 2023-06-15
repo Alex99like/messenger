@@ -6,15 +6,53 @@ import { MdSend } from 'react-icons/md'
 import { FaMicrophone } from 'react-icons/fa'
 import { useStateProvider } from '@/context/StateContext'
 import axios from 'axios'
-import { ADD_MESSAGE_ROUTE } from '@/utils/ApiRoutes'
+import { ADD_IMAGE_MESSAGE_ROUTE, ADD_MESSAGE_ROUTE } from '@/utils/ApiRoutes'
 import { REDUCER_CASES } from '@/context/constants'
 import EmojiPicker, { Theme, EmojiClickData } from 'emoji-picker-react'
+import { PhotoPicker } from '@/components/common/PhotoPicker/PhotoPicker'
 
 export const MessageBar = () => {
   const [{ userInfo, currentChatUser, socket }, dispatch] = useStateProvider()
   const [message, setMessage] = useState('')
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const emojiPickerRef = useRef<HTMLDivElement>(null)
+  const [grabPhoto, setGrabPhoto] = useState(false)
+
+  const photoPickerChange = async (e: any) => {
+    try {
+      const file = e.target.files[0]
+      const formData = new FormData()
+      formData.append('image', file)
+      const { data, status } = await axios.post(ADD_IMAGE_MESSAGE_ROUTE, formData, {
+        params: {
+          from: userInfo?.id,
+          to: currentChatUser?.id
+        },
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+      })
+      console.log(data)
+      if (status === 201) {
+        console.log(data)
+        console.log(socket)
+        socket?.emit("send-msg", {
+          to: currentChatUser?.id,
+          from: userInfo?.id,
+          message: data.message
+        })
+        dispatch({
+          type: REDUCER_CASES.ADD_MESSAGE,
+          newMessage: {
+            ...data.message
+          },
+          fromSelf: true
+        })
+      }
+    } catch(err) {
+      console.log(err)
+    }
+  }
 
   useEffect(() => {
     const handleOutsideClick = (event: globalThis.MouseEvent) => {
@@ -55,13 +93,26 @@ export const MessageBar = () => {
         newMessage: {
           ...data.message
         },
-        // fromSelf: true
+        fromSelf: true
       })
       setMessage('')
     } catch(err) {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    if (grabPhoto) {
+      const data = document.getElementById('photo-picker')
+      data?.click();
+      document.body.onfocus = () => {
+        setTimeout(() => {
+            setGrabPhoto(false)
+        }, 1000)
+        
+      }
+    }
+  }, [grabPhoto])
 
   return (
     <div className={styles.wrapper}>
@@ -81,7 +132,10 @@ export const MessageBar = () => {
         
       </div>
       <div>
-        <ImAttachment className={styles.icon} />
+        <ImAttachment 
+          className={styles.icon}
+          onClick={() => setGrabPhoto(true)} 
+        />
       </div>
       <input
         className={styles.message}
@@ -99,7 +153,11 @@ export const MessageBar = () => {
       >
         <MdSend />
       </button>
-      
+      {grabPhoto && (
+        <PhotoPicker  
+          onChange={photoPickerChange}
+        />
+      )}
     </div>
   )
 }

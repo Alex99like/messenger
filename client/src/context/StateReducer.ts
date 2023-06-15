@@ -36,7 +36,7 @@ export type ActionReducer =
  | { type: REDUCER_CASES.CHANGE_CURRENT_CHAT_USER, user: IUserContact }
  | { type: REDUCER_CASES.SET_MESSAGE, messages: IMessage[] }
  | { type: REDUCER_CASES.SET_SOCKET, socket: Socket }
- | { type: REDUCER_CASES.ADD_MESSAGE, newMessage: IMessage }
+ | { type: REDUCER_CASES.ADD_MESSAGE, newMessage: IMessage, fromSelf: boolean }
 
 
 export const reducer = (state: IInitialState, action: ActionReducer): IInitialState => {

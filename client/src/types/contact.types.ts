@@ -12,5 +12,5 @@ export interface IMessage {
   recieverId: number
   senderId: number
   createdAt: string
-  type: 'text'
+  type: 'text' | 'image'
 }

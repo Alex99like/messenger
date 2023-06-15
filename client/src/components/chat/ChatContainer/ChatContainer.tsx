@@ -5,12 +5,13 @@ import cn from 'clsx'
 import { calculateTime } from '@/utils/CalculateTime'
 import { MessageStatus } from '../MessageStatus/MessageStatus'
 import Image from 'next/image'
+import { HOST } from '@/utils/ApiRoutes'
 
 export const ChatContainer = () => {
   const [{ messages, currentChatUser, userInfo }, dispatch] = useStateProvider()
   
   useEffect(() => {
-    console.log(messages)
+    
   }, [messages]) 
 
   return (
@@ -33,9 +34,24 @@ export const ChatContainer = () => {
               <Image className={styles.avatar} src={userInfo?.profileImage || ''} width={40} height={40} alt='' />
             )}
             <div className={styles.container}>
-              <span className={styles.msg}>
-                {msg.message}
-              </span>
+              {msg.type === 'text' && (
+                <span className={styles.msg}>
+                  {msg.message}
+                </span>
+              )}
+              {msg.type === 'image' && (
+                <div className={styles['image-container']}>
+                  <Image 
+                    src={`${HOST}/${msg.message}`} 
+                    alt='' 
+                    className={styles.image}
+                    //fill
+                    width={300}
+                    height={200}
+                  />
+                </div>
+                
+              )}
               <div className={styles.date}>
                 <span className={styles.time}>
                   {calculateTime(msg.createdAt)}
