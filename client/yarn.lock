@@ -519,6 +519,11 @@
   dependencies:
     tslib "^2.4.0"
 
+"@types/debounce@*":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@types/debounce/-/debounce-1.2.1.tgz#79b65710bc8b6d44094d286aecf38e44f9627852"
+  integrity sha512-epMsEE85fi4lfmJUH/89/iV/LI+F5CvNIvmgs5g5jYFPfhO2S/ae8WSsLOKWdwtoaZw9Q2IhJ4tQ5tFCcS/4HA==
+
 "@types/long@^4.0.1":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.2.tgz#b74129719fc8d11c01868010082d483b7545591a"
@@ -554,6 +559,13 @@
   version "0.16.3"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.3.tgz#cef09e3ec9af1d63d2a6cc5b383a737e24e6dcf5"
   integrity sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==
+
+"@types/wavesurfer.js@^6.0.6":
+  version "6.0.6"
+  resolved "https://registry.yarnpkg.com/@types/wavesurfer.js/-/wavesurfer.js-6.0.6.tgz#748e7e6ccdd2638ef810240aed284f7c5514f2f2"
+  integrity sha512-fD54o0RXZXxkOb+69Rt6rGViaHpIc1Mmde2aOX9qPhlQhrCPepybGnsekiG407+7scPlaK+hmuPez5AnnmlzGg==
+  dependencies:
+    "@types/debounce" "*"
 
 ansi-regex@^5.0.1:
   version "5.0.1"
@@ -1140,6 +1152,11 @@ watchpack@2.4.0:
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
+
+wavesurfer.js@^6.6.4:
+  version "6.6.4"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-6.6.4.tgz#45e2d613fbfd60d906362ed6e11b649f481e4485"
+  integrity sha512-nBbc0pD/3FdClxKUKL1UW2V9AJPL+JOjC8T6/YF9/FCAn4uo+H6Y8VBkXo9UJXIHoBewoc7iXj3tPeL0UCJhjA==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"

@@ -6,6 +6,8 @@ import { calculateTime } from '@/utils/CalculateTime'
 import { MessageStatus } from '../MessageStatus/MessageStatus'
 import Image from 'next/image'
 import { HOST } from '@/utils/ApiRoutes'
+import dynamic from 'next/dynamic'
+const VoiceMessage = dynamic(() => import('../VoiceMessage/VoiceMessage'), { ssr: false })
 
 export const ChatContainer = () => {
   const [{ messages, currentChatUser, userInfo }, dispatch] = useStateProvider()
@@ -50,7 +52,11 @@ export const ChatContainer = () => {
                     height={200}
                   />
                 </div>
-                
+              )}
+              {msg.type === 'audio' && (
+                <VoiceMessage 
+                  message={msg}
+                />
               )}
               <div className={styles.date}>
                 <span className={styles.time}>

@@ -10,6 +10,9 @@ import { ADD_IMAGE_MESSAGE_ROUTE, ADD_MESSAGE_ROUTE } from '@/utils/ApiRoutes'
 import { REDUCER_CASES } from '@/context/constants'
 import EmojiPicker, { Theme, EmojiClickData } from 'emoji-picker-react'
 import { PhotoPicker } from '@/components/common/PhotoPicker/PhotoPicker'
+import dynamic from 'next/dynamic'
+
+const CaptureAudio = dynamic(() => import('@/components/common/CaptureAudio/CaptureAudio'), { ssr: false })
 
 export const MessageBar = () => {
   const [{ userInfo, currentChatUser, socket }, dispatch] = useStateProvider()
@@ -17,6 +20,8 @@ export const MessageBar = () => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const emojiPickerRef = useRef<HTMLDivElement>(null)
   const [grabPhoto, setGrabPhoto] = useState(false)
+  const [showAudioRecorder, setShowAudioRecorder] = useState(false)
+
 
   const photoPickerChange = async (e: any) => {
     try {
@@ -32,10 +37,8 @@ export const MessageBar = () => {
           "Content-Type": "multipart/form-data"
         },
       })
-      console.log(data)
+      
       if (status === 201) {
-        console.log(data)
-        console.log(socket)
         socket?.emit("send-msg", {
           to: currentChatUser?.id,
           from: userInfo?.id,
@@ -116,46 +119,58 @@ export const MessageBar = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.emoji}>
-        {showEmojiPicker && 
-          (<div ref={emojiPickerRef} className={styles['emoji-container']}>
-            <EmojiPicker 
-              theme={Theme.DARK} 
-              onEmojiClick={handleEmojiCLick}
+      {!showAudioRecorder && (
+        <>
+          <div className={styles.emoji}>
+            {showEmojiPicker && 
+              (<div ref={emojiPickerRef} className={styles['emoji-container']}>
+                <EmojiPicker 
+                  theme={Theme.DARK} 
+                  onEmojiClick={handleEmojiCLick}
+                />
+              </div>)}
+            <BsEmojiSmile 
+              className={styles.icon}
+              id="emoji-open"
+              onClick={handleEmojiModal}
             />
-          </div>)}
-        <BsEmojiSmile 
-          className={styles.icon}
-          id="emoji-open"
-          onClick={handleEmojiModal}
-        />
-        
-      </div>
-      <div>
-        <ImAttachment 
-          className={styles.icon}
-          onClick={() => setGrabPhoto(true)} 
-        />
-      </div>
-      <input
-        className={styles.message}
-        type='text'
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder='message...'
-      />
-      {/* <button className={styles.send}>
-        <FaMicrophone />
-      </button> */}
-      <button 
-        className={styles.send}
-        onClick={sendMessage}
-      >
-        <MdSend />
-      </button>
+            
+          </div>
+          <div>
+            <ImAttachment 
+              className={styles.icon}
+              onClick={() => setGrabPhoto(true)} 
+            />
+          </div>
+          <input
+            className={styles.message}
+            type='text'
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder='message...'
+          />
+          <button className={styles.send}>
+            <FaMicrophone 
+              onClick={() => setShowAudioRecorder(true)}
+            />
+          </button>
+          <button 
+            className={styles.send}
+            onClick={sendMessage}
+          >
+            <MdSend />
+          </button>
+        </>
+      )}
+      
       {grabPhoto && (
         <PhotoPicker  
           onChange={photoPickerChange}
+        />
+      )}
+      {showAudioRecorder && (
+        <CaptureAudio 
+          hide={setShowAudioRecorder}
         />
       )}
     </div>
