@@ -7,9 +7,10 @@ import { BiSearchAlt2 } from 'react-icons/bi'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { useStateProvider } from '@/context/StateContext'
 import DefAv from '@/assets/default_avatar.png'
+import { REDUCER_CASES } from '@/context/constants'
 
 export const ChatHeader = () => {
-  const [{ currentChatUser }] = useStateProvider()
+  const [{ currentChatUser }, dispatch] = useStateProvider()
 
   return (
     <div className={styles.wrapper}>
@@ -23,7 +24,9 @@ export const ChatHeader = () => {
       <div className={styles.icons}>
         <MdCall />
         <IoVideocam />
-        <BiSearchAlt2 />
+        <BiSearchAlt2 
+          onClick={() => dispatch({ type: REDUCER_CASES.SET_MESSAGE_SEARCH })}
+        />
         <BsThreeDotsVertical />
       </div>
     </div>

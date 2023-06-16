@@ -18,6 +18,7 @@ export interface IInitialState {
   currentChatUser: undefined | IUserContact
   messages: IMessage[]
   socket: Socket | undefined
+  messagesSearch: boolean
 }
 
 export const initialState: IInitialState = {
@@ -26,7 +27,8 @@ export const initialState: IInitialState = {
   contactsPage: false,
   currentChatUser: undefined,
   messages: [],
-  socket: undefined
+  socket: undefined,
+  messagesSearch: false
 }
 
 export type ActionReducer =
@@ -37,6 +39,7 @@ export type ActionReducer =
  | { type: REDUCER_CASES.SET_MESSAGE, messages: IMessage[] }
  | { type: REDUCER_CASES.SET_SOCKET, socket: Socket }
  | { type: REDUCER_CASES.ADD_MESSAGE, newMessage: IMessage, fromSelf: boolean }
+ | { type: REDUCER_CASES.SET_MESSAGE_SEARCH }
 
 
 export const reducer = (state: IInitialState, action: ActionReducer): IInitialState => {
@@ -81,6 +84,12 @@ export const reducer = (state: IInitialState, action: ActionReducer): IInitialSt
       return {
         ...state,
         messages: [...state.messages, action.newMessage]
+      }
+    }
+    case REDUCER_CASES.SET_MESSAGE_SEARCH: {
+      return {
+        ...state,
+        messagesSearch: !state.messagesSearch
       }
     }
     default: {

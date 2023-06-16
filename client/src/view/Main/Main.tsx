@@ -12,11 +12,12 @@ import { useStateProvider } from '@/context/StateContext'
 import { REDUCER_CASES } from '@/context/constants'
 import { Chat } from '@/components/chat/Chat'
 import { io, Socket } from 'socket.io-client'
+import { MessageSearch } from '@/components/MessageSearch/MessageSearch'
 
 export const Main = () => {
   const [redirectLogin, setRedirectLogin] = useState(false)
   const router = useRouter()
-  const [{ userInfo, currentChatUser }, dispatch] = useStateProvider()
+  const [{ userInfo, currentChatUser, messagesSearch }, dispatch] = useStateProvider()
   const [socketEvent, setSocketEvent] = useState(false)
   const socket = useRef<Socket>()
 
@@ -61,7 +62,8 @@ export const Main = () => {
           type: REDUCER_CASES.ADD_MESSAGE,
           newMessage: {
             ...data.message,
-          }
+          },
+          fromSelf: true
         })
       })
       setSocketEvent(true)
@@ -84,7 +86,14 @@ export const Main = () => {
     <section className={styles.wrapper}>
       <ChatList />
       {
-        currentChatUser ? <Chat /> : <Empty />
+        currentChatUser ? (
+          <>
+            <Chat />
+            {messagesSearch && <MessageSearch />}
+          </>
+        ) : (
+          <Empty />
+        )
       }
       {/* <Empty /> */}
     </section>
