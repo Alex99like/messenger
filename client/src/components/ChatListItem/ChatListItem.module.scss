@@ -2,6 +2,7 @@
   display: flex;
   padding: 10px;
   gap: 20px;
+  width: 100%;
   cursor: pointer;
 
   &:hover {
@@ -12,11 +13,65 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    width: 100%;
+    border-bottom: 1px solid #333333;
+
     
     color: #b5b5b5;
 
-    .about {
-      font-weight: 600;
+    .name {
+      display: flex;
+      
+      .total {
+        font-weight: 600;
+        background-color: #35b573;
+        color: black;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        padding: 0 3px;
+        border-radius: 5px;
+      }
+    }
+
+    
+    .total {
+      margin-left: auto;
     }
   }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    
+  }
+
+  .status {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    width: 100%;
+
+    .secondary {
+      color: #b5b5b5;
+    }
+  
+    .time {
+      margin-left: auto;
+      font-size: 10px;
+    }
+
+    .green {
+      color: #549a5a;
+    }
+  
+    .icon {
+      color: #3298ff;
+      margin-right: 7px;
+    }
+  }
+
+  
+
+
 }

@@ -11,14 +11,28 @@ import { IUserContact } from '@/types/contact.types'
 
 export const ContactList = () => {
   const [allContacts, setAllContacts] = useState<Record<string, IUserContact[]>>({})
-
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchContact, setSearchContact] = useState<Record<string, IUserContact[]>>({})
   const [{}, dispatch] = useStateProvider()
+
+  useEffect(() => {
+    if (searchTerm.length) {
+      const filteredData: Record<string, IUserContact[]> = {}
+      Object.keys(allContacts).forEach((key) => {
+        filteredData[key] = allContacts[key].filter((obj) => obj.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      })
+      setSearchContact(filteredData)
+    } else {
+      setSearchContact(allContacts)
+    }
+  }, [searchTerm])
 
   useEffect(() => {
     const getContacts = async () => {
       try {
         const { data: { users } } = await axios.get(GET_ALL_CONTACTS)
         setAllContacts(users)
+        setSearchContact(users)
       } catch(err) {
         console.log(err)
       }    
@@ -40,14 +54,20 @@ export const ContactList = () => {
         <input  
           type='text'
           placeholder='Search or start a new chat...'
+          onChange={(e) => setSearchTerm(e.target.value)}
+          value={searchTerm}
         />
         <BiFilter className={styles['filter-icon']} />
       </div>
       <div className={styles.list}>
-        {Object.entries(allContacts).map(([initialLetter, userList]) => {
+        {Object.entries(searchContact).map(([initialLetter, userList]) => {
           return (
             <div key={Date.now() + initialLetter}>
-              <span className={styles['init-letter']}>{initialLetter}</span>
+              {userList.length > 0 && (
+                <span className={styles['init-letter']}>
+                  {initialLetter}
+                </span>
+              )}
               {userList.map(contact => (
                 <ChatListItem 
                   data={contact}

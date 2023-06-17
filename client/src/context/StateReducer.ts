@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image"
 import { REDUCER_CASES } from "./constants"
-import { IMessage, IUserContact } from "@/types/contact.types"
+import { IFullUserContact, IMessage, IUserContact } from "@/types/contact.types"
 import { Socket } from 'socket.io-client'
 
 export interface IUserInfo {
@@ -19,6 +19,10 @@ export interface IInitialState {
   messages: IMessage[]
   socket: Socket | undefined
   messagesSearch: boolean
+  userContacts: IFullUserContact[]
+  onlineUsers: []
+  contactSearch: string
+  filteredContacts: IFullUserContact[]
 }
 
 export const initialState: IInitialState = {
@@ -28,7 +32,11 @@ export const initialState: IInitialState = {
   currentChatUser: undefined,
   messages: [],
   socket: undefined,
-  messagesSearch: false
+  messagesSearch: false,
+  userContacts: [],
+  onlineUsers: [],
+  contactSearch: '',
+  filteredContacts: []
 }
 
 export type ActionReducer =
@@ -40,6 +48,9 @@ export type ActionReducer =
  | { type: REDUCER_CASES.SET_SOCKET, socket: Socket }
  | { type: REDUCER_CASES.ADD_MESSAGE, newMessage: IMessage, fromSelf: boolean }
  | { type: REDUCER_CASES.SET_MESSAGE_SEARCH }
+ | { type: REDUCER_CASES.SET_USER_CONTACTS, userContacts: IFullUserContact[] }
+ | { type: REDUCER_CASES.SET_ONLINE_USERS, onlineUsers: any }
+ | { type: REDUCER_CASES.SET_CONTACT_SEARCH, contactSearch: string }
 
 
 export const reducer = (state: IInitialState, action: ActionReducer): IInitialState => {
@@ -90,6 +101,28 @@ export const reducer = (state: IInitialState, action: ActionReducer): IInitialSt
       return {
         ...state,
         messagesSearch: !state.messagesSearch
+      }
+    }
+    case REDUCER_CASES.SET_USER_CONTACTS: {
+      return {
+        ...state,
+        userContacts: action.userContacts
+      }
+    }
+    case REDUCER_CASES.SET_ONLINE_USERS: {
+      return {
+        ...state,
+        onlineUsers: action.onlineUsers
+      }
+    }
+    case REDUCER_CASES.SET_CONTACT_SEARCH: {
+      const filteredContacts = state.userContacts.filter((contact) => 
+        contact.name.toLowerCase().includes(action.contactSearch.toLowerCase())
+      )
+      return {
+        ...state,
+        contactSearch: action.contactSearch,
+        filteredContacts
       }
     }
     default: {
