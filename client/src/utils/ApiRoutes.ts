@@ -1,4 +1,4 @@
-export const HOST = 'https://messenger-production-c057.up.railway.app/'
+export const HOST = 'https://messenger-production-c057.up.railway.app'
 
 const AUTH_ROUTE = `${HOST}/api/auth`
 const MESSAGES_ROUTE = `${HOST}/api/messages`
