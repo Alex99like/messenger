@@ -12,6 +12,31 @@ import { REDUCER_CASES } from '@/context/constants'
 export const ChatHeader = () => {
   const [{ currentChatUser }, dispatch] = useStateProvider()
 
+  const handleVoiceCall = () => {
+    dispatch({ 
+      type: REDUCER_CASES.SET_VOICE_CALL,
+      voiceCall: {
+        ...currentChatUser!,
+        type: "out-going",
+        callType: 'voice',
+        roomId: Date.now()
+      }
+    })
+  }
+
+
+  const handleVideoCall = () => {
+    dispatch({
+      type: REDUCER_CASES.SET_VIDEO_CALL,
+      videoCall: {
+        ...currentChatUser!,
+        type: 'out-going',
+        callType: 'video',
+        roomId: Date.now()
+      }
+    })
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.profile}>
@@ -22,8 +47,12 @@ export const ChatHeader = () => {
        </div>
       </div>
       <div className={styles.icons}>
-        <MdCall />
-        <IoVideocam />
+        <MdCall 
+          onClick={handleVoiceCall}
+        />
+        <IoVideocam 
+          onClick={handleVideoCall}
+        />
         <BiSearchAlt2 
           onClick={() => dispatch({ type: REDUCER_CASES.SET_MESSAGE_SEARCH })}
         />

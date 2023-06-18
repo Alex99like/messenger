@@ -13,11 +13,24 @@ import { REDUCER_CASES } from '@/context/constants'
 import { Chat } from '@/components/chat/Chat'
 import { io, Socket } from 'socket.io-client'
 import { MessageSearch } from '@/components/MessageSearch/MessageSearch'
+import { VideoCall } from '@/components/Call/VideoCall/VideoCall'
+import { VoiceCall } from '@/components/Call/VoiceCall/VoiceCall'
+import { IncomingVideoCall } from '@/components/Call/IncomingVideoCall/IncomingVideoCall'
+import { IncomingVoiceCall } from '@/components/Call/IncomingVoiceCall/IncomingVoiceCall'
+
 
 export const Main = () => {
   const [redirectLogin, setRedirectLogin] = useState(false)
   const router = useRouter()
-  const [{ userInfo, currentChatUser, messagesSearch }, dispatch] = useStateProvider()
+  const [{ 
+    userInfo, 
+    currentChatUser, 
+    messagesSearch, 
+    videoCall, 
+    voiceCall, 
+    incomingVideoCall, 
+    incomingVoiceCall, 
+  }, dispatch] = useStateProvider()
   const [socketEvent, setSocketEvent] = useState(false)
   const socket = useRef<Socket>()
 
@@ -66,6 +79,37 @@ export const Main = () => {
           fromSelf: true
         })
       })
+
+      socket.current.on('incoming-voice-call', ({ from, roomId, callType }) => {
+        dispatch({
+          type: REDUCER_CASES.SET_INCOMING_VOICE_CALL,
+          incomingVoiceCall: { ...from, roomId, callType }
+        })
+      })
+
+      socket.current.on('incoming-video-call', ({ from, roomId, callType }) => {
+        dispatch({
+          type: REDUCER_CASES.SET_INCOMING_VIDEO_CALL,
+          incomingVideoCall: { ...from, roomId, callType }
+        })
+      })
+
+      socket.current.on('voice-call-rejected', () => {
+        dispatch({
+          type: REDUCER_CASES.END_CALL
+        })
+      })
+
+      socket.current.on('video-call-rejected', () => {
+        dispatch({
+          type: REDUCER_CASES.END_CALL
+        })
+      })
+
+      // socket.current.on('accept-incoming-call', ({ id }) => {
+      //   const sendUserSocket = 
+      // })
+
       setSocketEvent(true)
     }
   }, [socket.current])
@@ -82,20 +126,43 @@ export const Main = () => {
     }
   }, [currentChatUser])
 
-  return (
-    <section className={styles.wrapper}>
-      <ChatList />
-      {
-        currentChatUser ? (
-          <>
-            <Chat />
-            {messagesSearch && <MessageSearch />}
-          </>
-        ) : (
-          <Empty />
-        )
-      }
-      {/* <Empty /> */}
-    </section>
-  )
+  if (incomingVideoCall) return <IncomingVideoCall />
+  if (incomingVoiceCall) return <IncomingVoiceCall />
+
+  if (!videoCall && !voiceCall) {
+    return (
+      <section className={styles.wrapper}>
+        <ChatList />
+        {
+          currentChatUser ? (
+            <>
+              <Chat />
+              {messagesSearch && <MessageSearch />}
+            </>
+          ) : (
+            <Empty />
+          )
+        }
+        {/* <Empty /> */}
+      </section>
+    )
+  } else {
+    return (
+      <>
+        {videoCall && (
+          <div>
+            <VideoCall />
+          </div>
+        )}
+        {voiceCall && (
+          <div>
+            <VoiceCall />
+          </div>
+        )}
+        
+      </>
+    )
+  }
+
+  
 }

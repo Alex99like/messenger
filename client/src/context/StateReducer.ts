@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image"
 import { REDUCER_CASES } from "./constants"
-import { IFullUserContact, IMessage, IUserContact } from "@/types/contact.types"
+import { IFullUserContact, IMessage, IUserContact, TypeCall } from "@/types/contact.types"
 import { Socket } from 'socket.io-client'
 
 export interface IUserInfo {
@@ -22,7 +22,11 @@ export interface IInitialState {
   userContacts: IFullUserContact[]
   onlineUsers: []
   contactSearch: string
-  filteredContacts: IFullUserContact[]
+  filteredContacts: IFullUserContact[],
+  videoCall: undefined | TypeCall
+  voiceCall: undefined | TypeCall
+  incomingVoiceCall: undefined | any
+  incomingVideoCall: undefined | any
 }
 
 export const initialState: IInitialState = {
@@ -36,7 +40,11 @@ export const initialState: IInitialState = {
   userContacts: [],
   onlineUsers: [],
   contactSearch: '',
-  filteredContacts: []
+  filteredContacts: [],
+  videoCall: undefined,
+  voiceCall: undefined,
+  incomingVideoCall: undefined,
+  incomingVoiceCall: undefined
 }
 
 export type ActionReducer =
@@ -51,6 +59,11 @@ export type ActionReducer =
  | { type: REDUCER_CASES.SET_USER_CONTACTS, userContacts: IFullUserContact[] }
  | { type: REDUCER_CASES.SET_ONLINE_USERS, onlineUsers: any }
  | { type: REDUCER_CASES.SET_CONTACT_SEARCH, contactSearch: string }
+ | { type: REDUCER_CASES.SET_VIDEO_CALL, videoCall: TypeCall }
+ | { type: REDUCER_CASES.SET_VOICE_CALL, voiceCall: TypeCall }
+ | { type: REDUCER_CASES.SET_INCOMING_VOICE_CALL, incomingVoiceCall: any }
+ | { type: REDUCER_CASES.SET_INCOMING_VIDEO_CALL, incomingVideoCall: any }
+ | { type: REDUCER_CASES.END_CALL }
 
 
 export const reducer = (state: IInitialState, action: ActionReducer): IInitialState => {
@@ -123,6 +136,39 @@ export const reducer = (state: IInitialState, action: ActionReducer): IInitialSt
         ...state,
         contactSearch: action.contactSearch,
         filteredContacts
+      }
+    }
+    case REDUCER_CASES.SET_VIDEO_CALL: {
+      return {
+        ...state,
+        videoCall: action.videoCall,
+      }
+    }
+    case REDUCER_CASES.SET_VOICE_CALL: {
+      return {
+        ...state,
+        voiceCall: action.voiceCall,
+      }
+    }
+    case REDUCER_CASES.SET_INCOMING_VOICE_CALL: {
+      return {
+        ...state,
+        incomingVoiceCall: action.incomingVoiceCall,
+      }
+    }
+    case REDUCER_CASES.SET_INCOMING_VIDEO_CALL: {
+      return {
+        ...state,
+        incomingVideoCall: action.incomingVideoCall
+      }
+    }
+    case REDUCER_CASES.END_CALL: {
+      return {
+        ...state,
+        voiceCall: undefined,
+        videoCall: undefined,
+        incomingVideoCall: undefined,
+        incomingVoiceCall: undefined
       }
     }
     default: {

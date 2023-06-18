@@ -32,13 +32,13 @@ export const List = () => {
         filteredContacts && filteredContacts.length > 0 ? (
           <>
             {filteredContacts.map((contact) => (
-              <ChatListItem data={contact} />
+              <ChatListItem key={contact.id} data={contact} />
             ))}
           </>
         ) : (
           <>
             {userContacts.map((contact) => (
-              <ChatListItem data={contact} />
+              <ChatListItem key={contact.id} data={contact} />
             ))}
           </>          
         )

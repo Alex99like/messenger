@@ -27,3 +27,10 @@ export interface IFullUserContact extends IUserContact {
   totalUnreadMessages: number
   type: 'text' | 'image' | 'audio'
 }
+
+export interface TypeCall extends IUserContact {
+  callType: 'video' | 'voice' | 'audio'
+  type?: "out-going" | 'in-coming'
+ // email: string
+  roomId: number
+}
