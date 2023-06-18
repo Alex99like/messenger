@@ -1,0 +1,65 @@
+.wrapper {
+  min-height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  width: 100%;
+
+  @media (max-width: 920px) {
+    padding: 0 10px;
+  }
+  
+  .voice {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #141414;
+    border-radius: 15px;
+    
+    padding: 8px 15px;
+
+    @media (max-width: 920px) {
+      min-width: 70%;
+    }
+
+    .recording {
+      color: #ff4444;
+      margin-right: 10px;
+    }
+  }
+
+  .wive {
+    width: calc(100% - 100px);
+    overflow: hidden;
+  }
+
+  .icon {
+    color: #0392ff;
+    font-size: 22px;
+  }
+
+  .record {
+    color: #ff4646ff;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  .send {
+    font-size: 38px;
+    color: #43cdff;
+    border: 1px solid #43cdff;
+    border-radius: 50%;
+    padding: 5px;
+  }
+
+  .playback {
+    color: #ffffff;
+  }
+
+  .total-duration {
+    color: #43cdff;
+    max-width: 80px;
+    text-align: center;
+  }
+}
